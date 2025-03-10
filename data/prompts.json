@@ -1,0 +1,20 @@
+{
+  "simple_template": "Analyze the sentiment of the following tweet: {tweet}",
+  "context_template": "Given this context about social media trends: {context}\nAnalyze the sentiment of this tweet: {tweet}",
+  "few_shot_template": "Here are some examples of tweet sentiment analysis:\n{examples}\n\nNow analyze this tweet: {tweet}",
+  "additional_context": "Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.",
+  "examples": [
+    {
+      "tweet": "This product is absolutely terrible! Don't buy it!",
+      "response": "This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it."
+    },
+    {
+      "tweet": "Just had the best meal of my life at Restaurant X!",
+      "response": "This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant."
+    },
+    {
+      "tweet": "Weather forecast says it might rain tomorrow.",
+      "response": "This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion."
+    }
+  ]
+}

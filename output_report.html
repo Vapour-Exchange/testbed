@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LLM Processing Results</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+      }
+      h1 {
+        color: #333;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      .tweet {
+        font-weight: bold;
+      }
+      .prompt {
+        font-family: monospace;
+        white-space: pre-wrap;
+        background-color: #f5f5f5;
+        padding: 8px;
+        border-radius: 4px;
+      }
+      .response {
+        background-color: #f0f8ff;
+        padding: 8px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>LLM Processing Results</h1>
+    <table>
+      <thead>
+        <tr>
+          
+          <th>tweet</th>
+          
+          <th>prompt_type</th>
+          
+          <th>llm_model</th>
+          
+          <th>prompt</th>
+          
+          <th>response</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+           
+          <td class="tweet">I can't believe how amazing the new iPhone is! #Apple #Tech</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: I can't believe how amazing the new iPhone is! #Apple #Tech</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'I can't believe how amazing the new iPhone is! #Apple #Tech'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">I can't believe how amazing the new iPhone is! #Apple #Tech</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: I can't believe how amazing the new iPhone is! #Apple #Tech</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'I can't believe how amazing the new iPhone is! #Apple #Tech' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">I can't believe how amazing the new iPhone is! #Apple #Tech</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: I can't believe how amazing the new iPhone is! #Apple #Tech</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'I can't believe how amazing the new iPhone is! #Apple #Tech' with 3 examples</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Just had the worst customer service experience at @AirlineX. Never flying with them again!</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: Just had the worst customer service experience at @AirlineX. Never flying with them again!</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'Just had the worst customer service experience at @AirlineX. Never flying with them again!'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Just had the worst customer service experience at @AirlineX. Never flying with them again!</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: Just had the worst customer service experience at @AirlineX. Never flying with them again!</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'Just had the worst customer service experience at @AirlineX. Never flying with them again!' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Just had the worst customer service experience at @AirlineX. Never flying with them again!</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: Just had the worst customer service experience at @AirlineX. Never flying with them again!</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'Just had the worst customer service experience at @AirlineX. Never flying with them again!' with 3 examples</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">The sunset at the beach today was absolutely breathtaking. Nature is incredible!</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: The sunset at the beach today was absolutely breathtaking. Nature is incredible!</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'The sunset at the beach today was absolutely breathtaking. Nature is incredible!'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">The sunset at the beach today was absolutely breathtaking. Nature is incredible!</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: The sunset at the beach today was absolutely breathtaking. Nature is incredible!</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'The sunset at the beach today was absolutely breathtaking. Nature is incredible!' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">The sunset at the beach today was absolutely breathtaking. Nature is incredible!</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: The sunset at the beach today was absolutely breathtaking. Nature is incredible!</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'The sunset at the beach today was absolutely breathtaking. Nature is incredible!' with 3 examples</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Breaking: Major policy change announced by the government today. #Politics</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: Breaking: Major policy change announced by the government today. #Politics</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'Breaking: Major policy change announced by the government today. #Politics'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Breaking: Major policy change announced by the government today. #Politics</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: Breaking: Major policy change announced by the government today. #Politics</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'Breaking: Major policy change announced by the government today. #Politics' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Breaking: Major policy change announced by the government today. #Politics</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: Breaking: Major policy change announced by the government today. #Politics</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'Breaking: Major policy change announced by the government today. #Politics' with 3 examples</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">This movie was so boring I fell asleep halfway through. Don't waste your money!</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: This movie was so boring I fell asleep halfway through. Don't waste your money!</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'This movie was so boring I fell asleep halfway through. Don't waste your money!'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">This movie was so boring I fell asleep halfway through. Don't waste your money!</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: This movie was so boring I fell asleep halfway through. Don't waste your money!</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'This movie was so boring I fell asleep halfway through. Don't waste your money!' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">This movie was so boring I fell asleep halfway through. Don't waste your money!</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: This movie was so boring I fell asleep halfway through. Don't waste your money!</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'This movie was so boring I fell asleep halfway through. Don't waste your money!' with 3 examples</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Just finished my first marathon! 26.2 miles of pure determination. #Running #Fitness</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: Just finished my first marathon! 26.2 miles of pure determination. #Running #Fitness</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'Just finished my first marathon! 26.2 miles of pure determination. #Running #Fitness'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Just finished my first marathon! 26.2 miles of pure determination. #Running #Fitness</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: Just finished my first marathon! 26.2 miles of pure determination. #Running #Fitness</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'Just finished my first marathon! 26.2 miles of pure determination. #Running #Fitness' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Just finished my first marathon! 26.2 miles of pure determination. #Running #Fitness</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: Just finished my first marathon! 26.2 miles of pure determination. #Running #Fitness</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'Just finished my first marathon! 26.2 miles of pure determination. #Running #Fitness' with 3 examples</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">The new restaurant downtown has the best pasta I've ever tasted. Highly recommend!</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: The new restaurant downtown has the best pasta I've ever tasted. Highly recommend!</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'The new restaurant downtown has the best pasta I've ever tasted. Highly recommend!'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">The new restaurant downtown has the best pasta I've ever tasted. Highly recommend!</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: The new restaurant downtown has the best pasta I've ever tasted. Highly recommend!</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'The new restaurant downtown has the best pasta I've ever tasted. Highly recommend!' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">The new restaurant downtown has the best pasta I've ever tasted. Highly recommend!</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: The new restaurant downtown has the best pasta I've ever tasted. Highly recommend!</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'The new restaurant downtown has the best pasta I've ever tasted. Highly recommend!' with 3 examples</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Traffic is absolutely terrible today. Been stuck for an hour already. #CommuterProblems</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: Traffic is absolutely terrible today. Been stuck for an hour already. #CommuterProblems</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'Traffic is absolutely terrible today. Been stuck for an hour already. #CommuterProblems'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Traffic is absolutely terrible today. Been stuck for an hour already. #CommuterProblems</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: Traffic is absolutely terrible today. Been stuck for an hour already. #CommuterProblems</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'Traffic is absolutely terrible today. Been stuck for an hour already. #CommuterProblems' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Traffic is absolutely terrible today. Been stuck for an hour already. #CommuterProblems</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: Traffic is absolutely terrible today. Been stuck for an hour already. #CommuterProblems</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'Traffic is absolutely terrible today. Been stuck for an hour already. #CommuterProblems' with 3 examples</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Happy to announce I've accepted a new job offer! Starting next month. #NewBeginnings</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: Happy to announce I've accepted a new job offer! Starting next month. #NewBeginnings</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'Happy to announce I've accepted a new job offer! Starting next month. #NewBeginnings'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Happy to announce I've accepted a new job offer! Starting next month. #NewBeginnings</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: Happy to announce I've accepted a new job offer! Starting next month. #NewBeginnings</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'Happy to announce I've accepted a new job offer! Starting next month. #NewBeginnings' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Happy to announce I've accepted a new job offer! Starting next month. #NewBeginnings</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: Happy to announce I've accepted a new job offer! Starting next month. #NewBeginnings</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'Happy to announce I've accepted a new job offer! Starting next month. #NewBeginnings' with 3 examples</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Can anyone recommend a good book to read? I'm in the mood for a thriller.</td>
+            
+          <td>simple</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Analyze the sentiment of the following tweet: Can anyone recommend a good book to read? I'm in the mood for a thriller.</td>
+            
+          <td class="response">This is a static response from SimpleGPT4Processor analyzing: 'Can anyone recommend a good book to read? I'm in the mood for a thriller.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Can anyone recommend a good book to read? I'm in the mood for a thriller.</td>
+            
+          <td>with_context</td>
+            
+          <td>gpt-3.5</td>
+            
+          <td class="prompt">Given this context about social media trends: Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.
+Analyze the sentiment of this tweet: Can anyone recommend a good book to read? I'm in the mood for a thriller.</td>
+            
+          <td class="response">This is a static response from ContextGPT35Processor analyzing: 'Can anyone recommend a good book to read? I'm in the mood for a thriller.' with context: 'Social media users often express stronger emotions online than they would in person. Negative experiences are more likely to be shared than positive ones.'</td>
+           
+        </tr>
+        
+        <tr>
+           
+          <td class="tweet">Can anyone recommend a good book to read? I'm in the mood for a thriller.</td>
+            
+          <td>few_shot</td>
+            
+          <td>gpt-4</td>
+            
+          <td class="prompt">Here are some examples of tweet sentiment analysis:
+Tweet: This product is absolutely terrible! Don't buy it!
+Response: This tweet expresses strong negative sentiment. The user is clearly dissatisfied with the product and is warning others against purchasing it.
+Tweet: Just had the best meal of my life at Restaurant X!
+Response: This tweet expresses strong positive sentiment. The user is extremely satisfied with their dining experience and is implicitly recommending the restaurant.
+Tweet: Weather forecast says it might rain tomorrow.
+Response: This tweet is neutral in sentiment. The user is simply sharing information without expressing a positive or negative opinion.
+
+Now analyze this tweet: Can anyone recommend a good book to read? I'm in the mood for a thriller.</td>
+            
+          <td class="response">This is a static response from FewShotGPT4Processor analyzing: 'Can anyone recommend a good book to read? I'm in the mood for a thriller.' with 3 examples</td>
+           
+        </tr>
+        
+      </tbody>
+    </table>
+  </body>
+</html>
