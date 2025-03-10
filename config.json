@@ -1,0 +1,21 @@
+{
+  "prompt_files": {
+    "social": "data/social_media_prompt.json",
+    "degen": "data/degen_crypto_prompt.json"
+  },
+  "processors": [
+    {
+      "name": "base-4o-mini",
+      "prompt_type": "social_media",
+      "prompt_key": "social",
+      "additional_config": {
+        "temperature": 0.1
+      }
+    },
+    {
+      "name": "minimax",
+      "prompt_type": "social_media",
+      "prompt_key": "social"
+    }
+  ]
+}

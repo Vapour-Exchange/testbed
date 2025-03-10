@@ -4,20 +4,29 @@ import webbrowser
 import argparse
 import concurrent.futures
 from datetime import datetime
-from processors.base_4o_mini import Base4oMiniProcessor
-from report_generator import ReportGenerator
-from processors.minimax_processor import MiniMaxProcessor
+import sys
 
-def load_data(tweets_file='data/tweets.json', prompts_file='data/social_media_prompt.json'):
+# Import the processors package first to ensure registration occurs
+import processors
+from processors import ProcessorRegistry
+from report_generator import ReportGenerator
+from config_manager import ConfigManager
+
+def load_data(tweets_file='data/tweets.json', config_manager=None):
+    """Load tweets and prompt data."""
+    # Load tweets
     with open(tweets_file, 'r', encoding='utf-8') as f:
         tweets_data = json.load(f)
-        # Extract tweet content from the full tweet data
         tweets = [tweet_data['tweet_content'] for tweet_data in tweets_data]
     
-    with open(prompts_file, 'r', encoding='utf-8') as f:
-        prompt_data = json.load(f)
+    # Load prompts using config manager
+    if config_manager:
+        prompt_files = config_manager.get_prompt_files()
+        prompts_data = config_manager.load_prompt_files(prompt_files)
+    else:
+        prompts_data = {}
     
-    return tweets, prompt_data, tweets_data
+    return tweets, prompts_data, tweets_data
 
 def ensure_output_dir():
     """Ensure the output directory exists"""
@@ -32,36 +41,86 @@ def process_tweet_with_processor(args):
     processor_kwargs = kwargs.copy()
     processor_kwargs.update({
         'username': tweet_data.get('username', ''),
-        'tweet_id': tweet_data.get('tweet__id', ''),
+        'tweet_id': tweet_data.get('tweet_id', ''),
         'user_id': tweet_data.get('user_id', '')
     })
     
-    return processor.process(tweet, prompt_data, **processor_kwargs)
+    try:
+        return processor.process(tweet, prompt_data, **processor_kwargs)
+    except Exception as e:
+        processor_type = type(processor).__name__
+        print(f"Error processing tweet with {processor_type}: {e}")
+        return {
+            'tweet': tweet,
+            'prompt_type': kwargs.get('prompt_type', 'unknown'),
+            'llm_model': getattr(processor, 'model_name', 'unknown'),
+            'prompt': str(prompt_data),
+            'response': f"Error processing: {str(e)}"
+        }
 
 def main():
-    # Set up command line argument parsing
     parser = argparse.ArgumentParser(description='Process tweets with different LLM processors')
     parser.add_argument('tweets_file', nargs='?', default='data/tweets.json',
                         help='Path to the JSON file containing tweets (default: data/tweets.json)')
-    parser.add_argument('--prompts-file', default='data/social_media_prompt.json',
-                        help='Path to the JSON file containing prompts (default: data/social_media_prompt.json)')
+    parser.add_argument('--config', default='config.json',
+                        help='Path to configuration file (default: config.json)')
     parser.add_argument('--max-workers', type=int, default=4,
                         help='Maximum number of worker threads (default: 4)')
+    parser.add_argument('--list-processors', action='store_true',
+                        help='List all available processors and exit')
     args = parser.parse_args()
     
-    # Load data from the specified files
-    tweets, prompt_data, tweets_data = load_data(args.tweets_file, args.prompts_file)
+    # If --list-processors is specified, print available processors and exit
+    if args.list_processors:
+        print("Available processors:")
+        for name in ProcessorRegistry.list_available_processors():
+            print(f"  - {name}")
+        sys.exit(0)
+    
+    # Load configuration
+    config_manager = ConfigManager(args.config)
+    
+    # Load data
+    tweets, prompts_data, tweets_data = load_data(args.tweets_file, config_manager)
     ensure_output_dir()
     
     # Get the base filename without extension for the report
     tweets_filename = os.path.basename(args.tweets_file)
     tweets_basename = os.path.splitext(tweets_filename)[0]
     
-    # Initialize processors
-    processors = [
-        (Base4oMiniProcessor(), prompt_data, {}),
-        # (MiniMaxProcessor(), prompt_data, {}),
-    ]
+    # Initialize processors based on configuration
+    processors = []
+    processor_configs = config_manager.get_processor_configurations()
+    
+    if not processor_configs:
+        # Use default processors if none configured
+        print("No processors configured, using defaults...")
+        processors = [
+            (ProcessorRegistry.get_processor("base-4o-mini"), 
+             prompts_data.get('social', {}), 
+             {'prompt_type': 'social_media'})
+        ]
+    else:
+        # Initialize processors from configuration
+        for config in processor_configs:
+            processor_name = config.get('name')
+            prompt_type = config.get('prompt_type')
+            prompt_key = config.get('prompt_key')
+            
+            if not all([processor_name, prompt_type, prompt_key]):
+                print(f"Skipping invalid processor configuration: {config}")
+                continue
+                
+            try:
+                processor = ProcessorRegistry.get_processor(processor_name)
+                prompt_data = prompts_data.get(prompt_key, {})
+                kwargs = {'prompt_type': prompt_type}
+                # Add any additional configuration
+                kwargs.update(config.get('additional_config', {}))
+                
+                processors.append((processor, prompt_data, kwargs))
+            except Exception as e:
+                print(f"Error initializing processor {processor_name}: {e}")
     
     # Create a list of all tasks to be processed in parallel
     tasks = []

@@ -1,15 +1,19 @@
 from .base_processor import BaseLLMProcessor
+from .registry import ProcessorRegistry
 from typing import Dict, Any
 import os
 import requests
 import json
 from dotenv import load_dotenv
 
+@ProcessorRegistry.register("minimax")
 class MiniMaxProcessor(BaseLLMProcessor):
     def __init__(self):
+        super().__init__()
         load_dotenv()
         self.api_key = os.getenv("OPENROUTER_API_KEY")
         self.api_url = "https://openrouter.ai/api/v1/chat/completions"
+        self.model_name = "minimax-01"
         
     def process(self, tweet: str, prompt_data: Dict, **kwargs) -> Dict[str, Any]:
         """
@@ -20,25 +24,11 @@ class MiniMaxProcessor(BaseLLMProcessor):
             prompt_data: Dictionary containing prompt templates and examples
             kwargs: Additional arguments
         """
+        # Get prompt type from kwargs or use default
+        prompt_type = kwargs.get('prompt_type', 'default')
+        
         # Prepare messages for the API call
-        messages = []
-        
-        # Add system message if available
-        if "system_template" in prompt_data:
-            messages.append({
-                "role": "system",
-                "content": prompt_data["system_template"]
-            })
-            
-        # Add examples if available
-        if "examples" in prompt_data:
-            for example in prompt_data["examples"]:
-                messages.append({"role": "user", "content": example["user"]})
-                messages.append({"role": "assistant", "content": example["assistant"]})
-        
-        # Add the current tweet as user message
-        user_content = prompt_data.get("user_template", "{tweet}").format(tweet=tweet)
-        messages.append({"role": "user", "content": user_content})
+        messages = self.format_messages(tweet, prompt_data)
         
         # Prepare headers and payload
         headers = {
@@ -67,10 +57,4 @@ class MiniMaxProcessor(BaseLLMProcessor):
         except Exception as e:
             response_text = f"Error calling MiniMax API: {str(e)}"
         
-        return {
-            'tweet': tweet,
-            'prompt_type': 'social_media_comment',
-            'llm_model': 'minimax-01',
-            'prompt': json.dumps(messages, indent=2),
-            'response': response_text
-        } 
+        return self.get_result_dict(tweet, prompt_type, messages, response_text) 
