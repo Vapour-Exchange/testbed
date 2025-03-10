@@ -22,4 +22,4 @@ class BaseLLMProcessor:
                 - user_id: The ID of the user
                 - Other processor-specific arguments
         """
-        raise NotImplementedError 
+        raise NotImplementedError ("Subclasses must implement this method")
