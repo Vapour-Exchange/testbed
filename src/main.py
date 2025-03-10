@@ -6,6 +6,7 @@ import concurrent.futures
 from datetime import datetime
 from processors.base_4o_mini import Base4oMiniProcessor
 from report_generator import ReportGenerator
+from processors.minimax_processor import MiniMaxProcessor
 
 def load_data(tweets_file='data/tweets.json', prompts_file='data/social_media_prompt.json'):
     with open(tweets_file, 'r', encoding='utf-8') as f:
@@ -59,7 +60,7 @@ def main():
     # Initialize processors
     processors = [
         (Base4oMiniProcessor(), prompt_data, {}),
-        # Add more processors here as needed
+        # (MiniMaxProcessor(), prompt_data, {}),
     ]
     
     # Create a list of all tasks to be processed in parallel

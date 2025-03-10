@@ -1,114 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>LLM Processing Results</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LLM Analysis Report</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      :root {
+        --primary-color: #0f172a;
+        --secondary-color: #334155;
+        --accent-color: #3b82f6;
+        --background-color: #f8fafc;
+        --card-background: #ffffff;
+        --border-color: #e2e8f0;
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        line-height: 1.6;
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 2rem;
+        background: var(--background-color);
+        color: var(--primary-color);
       }
-      h1 {
-        color: #333;
-        border-bottom: 2px solid #eee;
-        padding-bottom: 10px;
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
       }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: var(--card-background);
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        color: var(--primary-color);
+      }
+
+      .header p {
+        margin: 1rem 0 0;
+        color: var(--secondary-color);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .stat-card {
+        background: var(--card-background);
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .stat-card h3 {
+        margin: 0;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--secondary-color);
+      }
+
+      .stat-card p {
+        margin: 0.5rem 0 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
       table {
-        border-collapse: collapse;
         width: 100%;
-        margin-top: 20px;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--card-background);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       }
+
       th,
       td {
-        border: 1px solid #ddd;
-        padding: 12px;
+        padding: 1rem;
         text-align: left;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      th {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      td {
         vertical-align: top;
       }
-      th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-        position: sticky;
-        top: 0;
-      }
-      tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-      .tweet {
-        font-weight: bold;
+
+      .tweet-cell {
         max-width: 300px;
+        font-weight: 500;
       }
-      .response {
-        background-color: #f0f8ff;
-        padding: 8px;
-        border-radius: 4px;
+
+      .response-cell {
+        background: #f1f5f9;
+        border-radius: 6px;
+        padding: 1rem;
+        margin: 0.5rem 0;
       }
+
       .prompt-toggle {
-        margin: 20px 0;
+        margin: 1rem 0;
+        text-align: right;
       }
+
+      button {
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.2s;
+      }
+
+      button:hover {
+        background: #2563eb;
+      }
+
       .prompt {
         display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 6px;
         font-family: monospace;
+        font-size: 0.875rem;
         white-space: pre-wrap;
-        background-color: #f5f5f5;
-        padding: 8px;
-        border-radius: 4px;
-        margin-top: 8px;
-      }
-      .method-header {
-        text-align: center;
-        font-weight: bold;
       }
     </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>LLM Analysis Report</h1>
+        <p>Generated on {{ date }}</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <h3>Total Tweets</h3>
+          <p>{{ total_tweets }}</p>
+        </div>
+        <div class="stat-card">
+          <h3>Models Used</h3>
+          <p>{{ total_models }}</p>
+        </div>
+        <div class="stat-card">
+          <h3>Processing Time</h3>
+          <p>{{ processing_time }}</p>
+        </div>
+      </div>
+
+      <div class="prompt-toggle">
+        <button onclick="togglePrompts()">Show Prompts</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tweet</th>
+            {% for method in methods %}
+            <th>{{ method }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in results %}
+          <tr>
+            <td class="tweet-cell">{{ row.tweet }}</td>
+            {% for method in methods %}
+            <td>
+              <div class="response-cell">{{ row[method + '_response'] }}</div>
+              <div class="prompt">{{ row[method + '_prompt'] }}</div>
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
     <script>
       function togglePrompts() {
         const prompts = document.querySelectorAll(".prompt");
-        const button = document.getElementById("toggle-button");
+        const button = document.querySelector("button");
+        const isHidden =
+          prompts[0].style.display === "none" ||
+          prompts[0].style.display === "";
 
-        for (let prompt of prompts) {
-          if (prompt.style.display === "none" || prompt.style.display === "") {
-            prompt.style.display = "block";
-            button.textContent = "Hide Prompts";
-          } else {
-            prompt.style.display = "none";
-            button.textContent = "Show Prompts";
-          }
-        }
+        prompts.forEach((prompt) => {
+          prompt.style.display = isHidden ? "block" : "none";
+        });
+
+        button.textContent = isHidden ? "Hide Prompts" : "Show Prompts";
       }
     </script>
-  </head>
-  <body>
-    <h1>LLM Processing Results</h1>
-
-    <div class="prompt-toggle">
-      <button id="toggle-button" onclick="togglePrompts()">Show Prompts</button>
-    </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Tweet</th>
-          {% for method in methods %}
-          <th class="method-header">{{ method }}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for result in results %}
-        <tr>
-          <td class="tweet">{{ result.tweet }}</td>
-          {% for method in methods %}
-          <td>
-            <div class="response">{{ result[method + '_response'] }}</div>
-            <div class="prompt">{{ result[method + '_prompt'] }}</div>
-          </td>
-          {% endfor %}
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
   </body>
 </html>

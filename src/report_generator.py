@@ -1,10 +1,21 @@
 from jinja2 import Environment, FileSystemLoader
-import pandas as pd
+from datetime import datetime
+import time
 
 class ReportGenerator:
     def __init__(self):
         self.env = Environment(loader=FileSystemLoader('templates'))
         self.template = self.env.get_template('report_template.html')
+        self.start_time = time.time()
+    
+    def format_processing_time(self):
+        elapsed_time = time.time() - self.start_time
+        if elapsed_time < 60:
+            return f"{elapsed_time:.1f} seconds"
+        else:
+            minutes = int(elapsed_time // 60)
+            seconds = int(elapsed_time % 60)
+            return f"{minutes}m {seconds}s"
     
     def generate_report(self, results: list) -> str:
         # Convert the flat results list to a structured format for comparison
@@ -44,9 +55,39 @@ class ReportGenerator:
                     row[f"{method}_prompt"] = "N/A"
             structured_results.append(row)
         
+        # Prepare template data
+        template_data = {
+            'date': datetime.now().strftime("%B %d, %Y at %I:%M %p"),
+            'total_tweets': len(tweets),
+            'total_models': len(methods),
+            'processing_time': self.format_processing_time(),
+            'results': structured_results,
+            'methods': sorted(list(methods))
+        }
+        
         # Render the template
-        return self.template.render(
-            results=structured_results,
-            methods=sorted(list(methods)),
-            show_prompts=False  # Toggle to show/hide prompts
-        ) 
+        return self.template.render(**template_data)
+
+    def generate_tweet_analysis_html(self, tweet, responses):
+        html = f'''
+        <div class="tweet-container">
+            <div class="tweet-content">
+                {tweet}
+            </div>
+            <div class="responses-grid">
+        '''
+        
+        for model_name, response_data in responses.items():
+            html += f'''
+                <div class="response-card">
+                    <h4>{model_name}</h4>
+                    <div class="response">{response_data['response']}</div>
+                    <div class="prompt">{response_data['prompt']}</div>
+                </div>
+            '''
+        
+        html += '''
+            </div>
+        </div>
+        '''
+        return html 
