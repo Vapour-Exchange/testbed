@@ -16,6 +16,11 @@
       "name": "minimax",
       "prompt_type": "social_media",
       "prompt_key": "social"
+    },
+    {
+      "name": "mistral",
+      "prompt_type": "social_media",
+      "prompt_key": "social"
     }
   ]
 }

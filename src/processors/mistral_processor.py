@@ -6,14 +6,14 @@ import requests
 import json
 from dotenv import load_dotenv
 
-@ProcessorRegistry.register("minimax")
+@ProcessorRegistry.register("mistral")
 class MiniMaxProcessor(BaseLLMProcessor):
     def __init__(self):
         super().__init__()
         load_dotenv()
         self.api_key = os.getenv("OPENROUTER_API_KEY")
         self.api_url = "https://openrouter.ai/api/v1/chat/completions"
-        self.model_name = "x-ai/grok-beta"
+        self.model_name = "x-ai/grok-2-1212"
         
     def process(self, tweet: str, prompt_data: Dict, **kwargs) -> Dict[str, Any]:
         """
@@ -37,7 +37,7 @@ class MiniMaxProcessor(BaseLLMProcessor):
         }
         
         payload = {
-            "model": "x-ai/grok-beta",
+            "model": "x-ai/grok-2-1212",
             "messages": messages
         }
         

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LLM Analysis Report</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #0f172a;
+        --secondary-color: #334155;
+        --accent-color: #3b82f6;
+        --background-color: #f8fafc;
+        --card-background: #ffffff;
+        --border-color: #e2e8f0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 2rem;
+        background: var(--background-color);
+        color: var(--primary-color);
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: var(--card-background);
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        color: var(--primary-color);
+      }
+
+      .header p {
+        margin: 1rem 0 0;
+        color: var(--secondary-color);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .stat-card {
+        background: var(--card-background);
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .stat-card h3 {
+        margin: 0;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--secondary-color);
+      }
+
+      .stat-card p {
+        margin: 0.5rem 0 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--card-background);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      th {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      td {
+        vertical-align: top;
+      }
+
+      .tweet-cell {
+        max-width: 300px;
+        font-weight: 500;
+      }
+
+      .response-cell {
+        background: #f1f5f9;
+        border-radius: 6px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+      }
+
+      .prompt-toggle {
+        margin: 1rem 0;
+        text-align: right;
+      }
+
+      button {
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.2s;
+      }
+
+      button:hover {
+        background: #2563eb;
+      }
+
+      .prompt {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 0.875rem;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>LLM Analysis Report</h1>
+        <p>Generated on March 10, 2025 at 10:48 PM</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <h3>Total Tweets</h3>
+          <p>10</p>
+        </div>
+        <div class="stat-card">
+          <h3>Models Used</h3>
+          <p>1</p>
+        </div>
+        <div class="stat-card">
+          <h3>Processing Time</h3>
+          <p>0.0 seconds</p>
+        </div>
+      </div>
+
+      <div class="prompt-toggle">
+        <button onclick="togglePrompts()">Show Prompts</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tweet</th>
+            
+            <th>tweet_generation_gpt-4o-mini</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post explaining the impact of Ethereum's EIP-4844 on layer 2 scaling solutions and fee reduction.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post highlighting recent Solana ecosystem developments and their impact on network performance.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post discussing the evolution of NFT utility beyond digital art into gaming and real-world assets.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post analyzing the recent price action of Jupiter token ($JUP) and the governance challenges facing the project.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post comparing lending protocols across different blockchains and their risk management strategies.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post summarizing recent regulatory developments in crypto across major jurisdictions and their market implications.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post examining the trade-offs between decentralization and operational efficiency in modern DAOs.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post explaining MEV extraction techniques and their impact on blockchain fairness and user experience.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post discussing the intersection of AI and blockchain technologies and potential future applications.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tweet-cell">Generate a post analyzing Bitcoin's on-chain metrics and what they suggest about long-term holder behavior.</td>
+            
+            <td>
+              <div class="response-cell">Error processing: 'topic'</div>
+              <div class="prompt">{'system_template': 'You are an expert crypto and web3 content creator who specializes in writing engaging tweets. You understand the nuances of different blockchain ecosystems, DeFi protocols, and web3 projects. Your tweets are informative, engaging, and maintain a professional yet approachable tone.\n\nIMPORTANT: All tweets MUST be under 280 characters. This is a strict requirement.', 'user_template': 'Based on the similar tweets provided as context, create a new original tweet about {topic}. The tweet MUST be under 280 characters (this is a strict requirement). Make it informative and engaging while including relevant information about the topic. Avoid directly copying content from the example tweets. Make it sound authentic and conversational.', 'examples': [{'user': 'Create a tweet about Ethereum scaling solutions.', 'assistant': 'Layer 2 solutions are revolutionizing Ethereum! With rollups processing thousands of TPS at minimal cost, dApps can finally scale. Excited to see what builders create in this new era of accessibility.'}, {'user': 'Create a tweet about NFT utility.', 'assistant': 'NFTs are evolving beyond collectibles. From community access to governance rights and real-world asset representation, utility-focused NFTs are reshaping digital ownership. The future belongs to projects with genuine utility.'}]}</div>
+            </td>
+            
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function togglePrompts() {
+        const prompts = document.querySelectorAll(".prompt");
+        const button = document.querySelector("button");
+        const isHidden =
+          prompts[0].style.display === "none" ||
+          prompts[0].style.display === "";
+
+        prompts.forEach((prompt) => {
+          prompt.style.display = isHidden ? "block" : "none";
+        });
+
+        button.textContent = isHidden ? "Hide Prompts" : "Show Prompts";
+      }
+    </script>
+  </body>
+</html>
